@@ -18,14 +18,16 @@ class ToDoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let savedTodos = ToDo.loadToDos() {
+            todos = savedTodos
+        } else {
+            todos = ToDo.loadSampleToDos()
+        }
     }
 
 
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return todos.count
