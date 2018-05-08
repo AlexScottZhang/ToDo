@@ -24,6 +24,8 @@ class ToDoTableViewController: UITableViewController {
         } else {
             todos = ToDo.loadSampleToDos()
         }
+        
+        navigationItem.leftBarButtonItem = editButtonItem
     }
 
 
@@ -40,6 +42,18 @@ class ToDoTableViewController: UITableViewController {
         let todo = todos[indexPath.row]
         cell.textLabel?.text = todo.title
         return cell
+    }
+    
+    // MARK: - Table View delegate
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            todos.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
 
 }
