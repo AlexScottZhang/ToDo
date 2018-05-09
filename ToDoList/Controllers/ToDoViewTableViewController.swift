@@ -20,6 +20,10 @@ class ToDoViewTableViewController: UITableViewController {
     
     // MARK: - Properties
     var isDatePickerHidden = true
+    struct PropertyKeys {
+        static let SaveToDoSegue = "saveUnwind"
+    }
+    var toDo: ToDo?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +50,18 @@ class ToDoViewTableViewController: UITableViewController {
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
         updateDueDateLabel(date: dueDatePikcer.date)
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard segue.identifier == PropertyKeys.SaveToDoSegue else {return}
+        
+        let title = titleTextField.text!
+        let isComplete = isCompleteButton.isSelected
+        let dueDate = dueDatePikcer.date
+        let notes = notesTextView.text
+        
+        toDo = ToDo(title: title, isComplete: isComplete, dueDate: dueDate, notes: notes)
     }
     
     // MARK: - Utilities

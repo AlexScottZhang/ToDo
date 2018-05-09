@@ -12,6 +12,7 @@ class ToDoTableViewController: UITableViewController {
     // MARK: - Properties
     struct PropertyKeys {
         static let ToDoCellIdentifier = "ToDoCell"
+        static let SaveToDoSegue = "saveUnwind"
     }
     var todos = [ToDo]()
     
@@ -29,9 +30,15 @@ class ToDoTableViewController: UITableViewController {
     }
     
     @IBAction func unwindToToDoList(segue: UIStoryboardSegue) {
+        guard segue.identifier == PropertyKeys.SaveToDoSegue,
+            let sourceVC = segue.source as? ToDoViewTableViewController,
+            let toDo = sourceVC.toDo else {return}
         
+        let newIndexPath = IndexPath(row: todos.count, section: 0)
+        todos.append(toDo)
+        tableView.insertRows(at: [newIndexPath], with: .automatic)
     }
-
+    
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
