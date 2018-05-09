@@ -48,7 +48,7 @@
         <!--详细信息-->
         <scene sceneID="JhI-IJ-Prx">
             <objects>
-                <tableViewController id="wde-9J-hYt" sceneMemberID="viewController">
+                <tableViewController id="wde-9J-hYt" customClass="ToDoViewTableViewController" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="pJQ-2M-Ewe">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -71,12 +71,19 @@
                                                     </constraints>
                                                     <state key="normal" image="Unchecked"/>
                                                     <state key="selected" image="Checked"/>
+                                                    <connections>
+                                                        <action selector="isCompleteButtonTapped:" destination="wde-9J-hYt" eventType="primaryActionTriggered" id="W2Q-dZ-m74"/>
+                                                    </connections>
                                                 </button>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="提醒我..." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mm0-3l-kEB">
                                                     <rect key="frame" x="60" y="7" width="299" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="returnPressed:" destination="wde-9J-hYt" eventType="primaryActionTriggered" id="GoQ-RF-kEh"/>
+                                                        <action selector="textEditingChanged:" destination="wde-9J-hYt" eventType="editingChanged" id="ccY-3j-9Vj"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -99,8 +106,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="199.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmE-TT-u5S">
-                                                    <rect key="frame" x="16" y="11" width="42" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="截止日期" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fmE-TT-u5S">
+                                                    <rect key="frame" x="16" y="11" width="70" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -116,6 +123,9 @@
                                                     <date key="date" timeIntervalSinceReferenceDate="547458258.44755602">
                                                         <!--2018-05-08 07:44:18 +0000-->
                                                     </date>
+                                                    <connections>
+                                                        <action selector="datePickerChanged:" destination="wde-9J-hYt" eventType="primaryActionTriggered" id="Aun-dq-KqV"/>
+                                                    </connections>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
@@ -175,6 +185,14 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="dueDateLabel" destination="i6P-hj-ky4" id="4kj-Gf-WDs"/>
+                        <outlet property="dueDatePikcer" destination="873-ti-nIh" id="iqA-OX-AsJ"/>
+                        <outlet property="isCompleteButton" destination="Pru-PF-o9f" id="vvN-TP-Wp1"/>
+                        <outlet property="notesTextView" destination="Tdh-pH-LMk" id="wnw-jP-5eD"/>
+                        <outlet property="saveButton" destination="j4J-eo-StR" id="G0e-i1-piW"/>
+                        <outlet property="titleTextField" destination="mm0-3l-kEB" id="U4f-wx-lw8"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5ff-In-bND" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="RwG-nB-MPh" userLabel="Exit" sceneMemberID="exit"/>
