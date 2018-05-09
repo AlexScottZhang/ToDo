@@ -42,8 +42,8 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
             let newIndexPath = IndexPath(row: todos.count, section: 0)
             todos.append(toDo)
             tableView.insertRows(at: [newIndexPath], with: .automatic)
-            
         }
+        ToDo.saveToDos(todos)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -81,6 +81,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
         if editingStyle == .delete {
             todos.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            ToDo.saveToDos(todos)
         }
     }
     
@@ -91,6 +92,7 @@ class ToDoTableViewController: UITableViewController, ToDoCellDelegate {
             todo.isComplete = !todo.isComplete
             todos[indexPath.row] = todo
             tableView.reloadRows(at: [indexPath], with: .automatic)
+            ToDo.saveToDos(todos)
         }
     }
 
