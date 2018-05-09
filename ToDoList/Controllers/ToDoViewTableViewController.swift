@@ -28,8 +28,16 @@ class ToDoViewTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 截止日期预设为1天之后
-        dueDatePikcer.date = Date().addingTimeInterval(86400)
+        if let toDo = toDo {
+            navigationItem.title = "To-Do"
+            titleTextField.text = toDo.title
+            isCompleteButton.isSelected = toDo.isComplete
+            dueDatePikcer.date = toDo.dueDate
+            notesTextView.text = toDo.notes
+        } else {
+            // 截止日期预设为1天之后
+            dueDatePikcer.date = Date().addingTimeInterval(86400)
+        }
         
         updateDueDateLabel(date: dueDatePikcer.date)
         updateSaveButtonState()

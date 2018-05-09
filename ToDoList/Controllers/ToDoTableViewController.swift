@@ -13,6 +13,7 @@ class ToDoTableViewController: UITableViewController {
     struct PropertyKeys {
         static let ToDoCellIdentifier = "ToDoCell"
         static let SaveToDoSegue = "saveUnwind"
+        static let ShowDetailSegue = "showDetails"
     }
     var todos = [ToDo]()
     
@@ -34,9 +35,25 @@ class ToDoTableViewController: UITableViewController {
             let sourceVC = segue.source as? ToDoViewTableViewController,
             let toDo = sourceVC.toDo else {return}
         
-        let newIndexPath = IndexPath(row: todos.count, section: 0)
-        todos.append(toDo)
-        tableView.insertRows(at: [newIndexPath], with: .automatic)
+        if let indexPath = tableView.indexPathForSelectedRow {
+            todos[indexPath.row] = toDo
+            tableView.reloadRows(at: [indexPath], with: .automatic)
+        } else {
+            let newIndexPath = IndexPath(row: todos.count, section: 0)
+            todos.append(toDo)
+            tableView.insertRows(at: [newIndexPath], with: .automatic)
+            
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == PropertyKeys.ShowDetailSegue {
+            let destinationVC = segue.destination as! ToDoViewTableViewController
+            
+            let indexPath = tableView.indexPathForSelectedRow!
+            let toDo = todos[indexPath.row]
+            destinationVC.toDo = toDo
+        }
     }
     
     // MARK: - Table view data source
